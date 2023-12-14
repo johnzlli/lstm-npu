@@ -82,7 +82,7 @@ def train(model_for_train, ntrain, group_for_train, precision):
             model_for_train.eval()  # evaluate model
             result, rmse = testing_function(num_test, group_test, precision)
 
-            if rmse_temp < rmse and rmse_temp < 25:
+            if rmse_temp < rmse and rmse_temp < 28:
                 result, rmse = result_temp, rmse_temp
                 break
 

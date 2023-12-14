@@ -4,6 +4,8 @@ from model import *
 from visualize import *
 import numpy as np
 from apex import amp, optimizers
+import torch_npu
+from torch_npu.contrib import transfer_to_npu
 
 N_HIDDEN = 4096  # NUMBER OF HIDDEN STATES
 N_LAYER = 8  # NUMBER OF LSTM LAYERS
@@ -82,7 +84,7 @@ def train(model_for_train, ntrain, group_for_train, precision):
             model_for_train.eval()  # evaluate model
             result, rmse = testing_function(num_test, group_test, precision)
 
-            if rmse_temp < rmse and rmse_temp < 25:
+            if rmse_temp < rmse and rmse_temp < 28:
                 result, rmse = result_temp, rmse_temp
                 break
 
@@ -92,7 +94,6 @@ def train(model_for_train, ntrain, group_for_train, precision):
     print("avg epoch training time: %1.3f ms" % (total_time / epoch_num))
 
     return result, rmse
-
 
 if __name__ == "__main__":
     import argparse
